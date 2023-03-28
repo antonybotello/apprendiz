@@ -1,24 +1,36 @@
 {% load django_bootstrap5 %}
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% bootstrap_css %}
     {% bootstrap_javascript %}
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"
+        integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+    <!-- Incluye el plugin slick -->
+   
 
-    <title> APPrendiz - {{titulo}} </title>
-</head>
-<body>
-    {% include 'partials/header.html' %}
-    
-    {% block contenido %}
-        
-    {% endblock contenido %}
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
 
-    {% include 'partials/footer.html' %}
 
-        
-</body>
-</html>
+
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+        <title> APPrendiz - {{ titulo }} </title>
+</head >
+            <body>
+                {% include 'partials/header.html' %}
+                <div class="container">
+                    <div class="row g-5">
+                {% block contenido %}
+
+                {% endblock contenido %}
+                    </div>
+                </div>
+                {% include 'partials/footer.html' %}
+
+
+            </body>
+</html >

@@ -2,24 +2,41 @@
 
 
 {% block contenido %}
+<a href="{% url 'usuarios-crear' %}" class="btn btn-success w-25">Crear {{titulo}}</a>
 <table class="table table-striped table-hover">
     <thead>
         <tr>
             <th>Nombre</th>
-            <th>Apellido</th>
+            <th>Primer Apellido</th>
+            <th>Segundo Apellido</th>
+
             <th>Tipo de Documento</th>
             <th>Documento</th>
+            <th>Acciones</th>
+
         </tr>
     </thead>
     <tbody>
         
-        {% for proveedor in proveedores %}
+        {% for usuario in usuarios %}
+        
+        {% if usuario.estado != "0" %}
+            
+        
+            
             <tr>
-                <td>{{proveedor.nombre}}</td>
-                <td>{{proveedor.apellido}}</td>
-                <td>{{proveedor.get_tipoDocumento_display}}</td>
-                <td>{{proveedor.documento}}</td>
+                <td>{{usuario.primer_nombre}} {{usuario.segundo_nombre}}</td>
+                <td>{{usuario.primer_apellido}}</td>
+                <td>{{usuario.segundo_apellido}}</td>
+
+                <td>{{usuario.get_tipo_documento_display}}</td>
+                <td>{{usuario.documento}}</td>
+                <td><a class="btn btn-danger" href="{% url 'usuarios-eliminar' usuario.id %}">-</a>
+                    <a class="btn btn-primary" href="{% url 'usuarios-modificar' usuario.id %}">+</a>
+                </td>
+
             </tr>
+            {% endif %}
         {% endfor %}
             
     </tbody>

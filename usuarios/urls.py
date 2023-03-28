@@ -1,9 +1,13 @@
 from django.urls import path
 
-from usuarios.views import proveedor_listar, proveedor_crear
+from usuarios.views import usuario_listar, usuario_crear, usuario_modificar, usuario_eliminar
 
 urlpatterns = [
-    path('proveedores/', proveedor_listar, name="proveedores" ),
-    path('proveedores/crear/', proveedor_crear, name="proveedores-crear" ),
+    path('usuarios/', usuario_listar, name="usuarios" ),
+    path('usuarios/crear/', usuario_crear, name="usuarios-crear" ),
+    path('usuarios/modificar/<int:pk>/', usuario_modificar, name="usuarios-modificar" ),
+    path('usuarios/eliminar/<int:pk>/', usuario_eliminar, name="usuarios-eliminar" ),
+    
+    
 
 ]
