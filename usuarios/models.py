@@ -8,7 +8,7 @@ class Usuario(models.Model):
     primer_apellido= models.CharField(max_length=45,verbose_name="Primer Apellido")
     segundo_apellido= models.CharField(max_length=45,verbose_name="Segundo Apellido")
     
-    fecha_nacimiento= models.DateField(verbose_name="Fecha de Nacimiento", help_text="MM/DD/AAAA")
+    fecha_nacimiento= models.DateField(verbose_name="Fecha de Nacimiento", help_text="DD/MM/AAAA")
     
     class RH(models.TextChoices):
         OP='OP',_("O+")
@@ -34,8 +34,8 @@ class Usuario(models.Model):
     
     documento= models.CharField(max_length=10,verbose_name="Documento")
     
-    correo_personal= models.CharField(max_length=50,verbose_name="Correo Personal")
-    correo_ins= models.CharField(max_length=50,verbose_name="Correo Institucional")
+    correo_personal = models.EmailField(max_length=50, verbose_name="Correo Personal")
+    correo_ins = models.EmailField(max_length=50, verbose_name="Correo Institucional")
     telefono_contacto=models.CharField(max_length=10,verbose_name="Teléfono de Contacto")
     telefono_personal=models.CharField(max_length=10,verbose_name="Teléfono de Personal")
     class Estado(models.TextChoices):
@@ -59,17 +59,33 @@ class Usuario(models.Model):
     
     class Meta:
         verbose_name_plural = "Usuarios"
+    @property
+    def full_name(self):
+        if self.segundo_nombre:
+            return f"{self.primer_nombre} {self.segundo_nombre} {self.primer_apellido} {self.segundo_apellido}"
+        else:
+            return f"{self.primer_nombre} {self.primer_apellido} {self.segundo_apellido}"
         
 class Ficha(models.Model):
-    numero_ficha=models.CharField(max_length=7,verbose_name="Primer Nombre")
-    fecha_ingreso= models.DateField(verbose_name="Fecha de Ingreso", help_text="MM/DD/AAAA")
-    fecha_productiva= models.DateField(verbose_name="Fecha de Etapa Productiva", help_text="MM/DD/AAAA")
-    fecha_final= models.DateField(verbose_name="Fecha de Salida", help_text="MM/DD/AAAA")
+    numero = models.PositiveIntegerField(verbose_name="Número de Ficha")
+    fecha_ingreso = models.DateField(verbose_name="Fecha de Ingreso", help_text="DD/MM/AAAA")
+    fecha_productiva = models.DateField(verbose_name="Fecha de Etapa Productiva", help_text="DD/MM/AAAA")
+    fecha_final = models.DateField(verbose_name="Fecha de Salida", help_text="DD/MM/AAAA")
+    class Estado(models.TextChoices):
+        ACTIVO='1',_("Activo")
+        INACTIVO='0',_("Inactivo")
+    estado=models.CharField(max_length=1,choices=Estado.choices,default=Estado.ACTIVO,verbose_name="Estado")
+     
+    def __str__(self):
+        return f"Ficha {self.numero}"
+
+    class Meta:
+        verbose_name_plural = "Fichas"
 
 class Usuarios_Ficha(models.Model):
     ficha=models.ForeignKey(Ficha, on_delete=models.CASCADE,verbose_name="Ficha")
     usuario=models.ForeignKey(Usuario, on_delete=models.CASCADE,verbose_name="Usuario")
-
+    
     
     
 

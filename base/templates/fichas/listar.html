@@ -1,0 +1,62 @@
+{% extends 'partials/body.html' %}
+{% load bootstrap_icons %}
+
+{% block contenido %}
+<a href="{% url 'fichas-crear' %}" class="btn btn-success w-25">Crear {{titulo}}</a>
+<table id="lista-tabla" class="table table-hover">
+    <thead>
+
+
+
+        <tr>
+            <th>Numero</th>
+            <th>Fecha de Ingreso</th>
+            <th>Fecha de Etapa Productiva</th>
+            <th>Fecha de Finalización</th>
+            <th>Estado</th>
+
+            <th>Acciones</th>
+
+        </tr>
+    </thead>
+    <tbody>
+
+        {% for ficha in fichas %}
+
+        {% if ficha.estado != "a" %}
+
+
+
+        <tr>
+            <td>{{ficha.numero}} </td>
+
+            <td>{{ficha.fecha_ingreso}} </td>
+            <td>{{ficha.fecha_productiva}}</td>
+            <td>{{ficha.fecha_final}}</td>
+            <td>{{ficha.estado}}</td>
+
+            <td>
+
+                <button type="button" data-ficha="{{ficha.id}}" class="btnEliminar btn btn-danger"
+                    data-bs-toggle="modal" data-bs-target="#modalConf">
+                    {% bs_icon 'trash' %}
+
+                </button>
+                <a class="btn btn-primary" href="{% url 'fichas-modificar' ficha.id %}">+</a>
+            </td>
+
+        </tr>
+        {% endif %}
+        {% endfor %}
+
+    </tbody>
+</table>
+<script>
+    $(document).ready(function () {
+        $('#lista-tabla').DataTable({
+            "responsive": true,
+            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+        }).buttons().container().appendTo('#lista-tabla_wrapper .col-md-6:eq(0)');
+    });
+</script>
+{% endblock contenido %}

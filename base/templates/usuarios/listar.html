@@ -1,9 +1,9 @@
 {% extends 'partials/body.html' %}
-
+{% load bootstrap_icons %}
 
 {% block contenido %}
 <a href="{% url 'usuarios-crear' %}" class="btn btn-success w-25">Crear {{titulo}}</a>
-<table class="table table-striped table-hover">
+<table class="table table-hover">
     <thead>
         <tr>
             <th>Nombre</th>
@@ -31,7 +31,12 @@
 
                 <td>{{usuario.get_tipo_documento_display}}</td>
                 <td>{{usuario.documento}}</td>
-                <td><a class="btn btn-danger" href="{% url 'usuarios-eliminar' usuario.id %}">-</a>
+                <td>
+                    <button  type="button" data-ficha="{{usuario.id}}" class="btnEliminar btn btn-danger"
+                    data-bs-toggle="modal" data-bs-target="#modalConf">
+                    {% bs_icon 'trash' %}
+
+                </button>
                     <a class="btn btn-primary" href="{% url 'usuarios-modificar' usuario.id %}">+</a>
                 </td>
 

@@ -1,0 +1,16 @@
+{% load static %}
+<script src="{% static 'js/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'js/adminlte/adminlte.js' %}"></script>
+<script src="{% static 'js/DataTables/datatables.min.js' %}"></script>
+<script src="{% static 'js/Overlay/jquery.overlayScrollbars.min.js' %}"></script>
+<script src="{% static 'js/sweetalert2/sweetalert2.all.min.js' %}"></script>
+<script src="{% static 'js/sweetalert2/sweet-config.js' %}"></script>
+
+
+
+<script>
+    $(".btnEliminar").click(function () {
+        var ficha = $(this).data("ficha");
+        $("#btnConfElim").attr("href", "/{{modulo|lower}}/{{titulo|lower}}/eliminar/" + ficha);
+    });
+</script>

@@ -1,4 +1,6 @@
+{% load static %}
 {% load django_bootstrap5 %}
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -8,29 +10,74 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% bootstrap_css %}
     {% bootstrap_javascript %}
+    {% bootstrap_messages %}
+    <script src="{% static 'js/jquery/jquery.min.js' %}"></script>
+<link rel="shortcut icon" href="{% static 'img/logoSena.png' %}" type="image/x-icon">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"
         integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
     <!-- Incluye el plugin slick -->
-   
-
-<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
-
-
-
-<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-        <title> APPrendiz - {{ titulo }} </title>
-</head >
-            <body>
-                {% include 'partials/header.html' %}
-                <div class="container">
-                    <div class="row g-5">
-                {% block contenido %}
-
-                {% endblock contenido %}
-                    </div>
-                </div>
-                {% include 'partials/footer.html' %}
+    <link rel="stylesheet" href="{% static 'css/adminlte.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Overlay/OverlayScrollbars.min.css' %}">
+    <link href="{% static 'js/DataTables/datatables.min.css' %}" rel="stylesheet"/>
+    <link rel="stylesheet" href="{% static 'js/sweetalert2/sweetalert2.min.css' %}">
 
 
-            </body>
-</html >
+    <title> APPrendiz - {{ titulo }} </title>
+</head>
+
+<body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+    <!-- Preloader -->
+    <div class="preloader flex-column justify-content-center align-items-center">
+        <img class="animation__wobble" src="{% static 'img/logoSena.png' %}" alt="AdminLTELogo" height="200"
+            width="200">
+    </div>
+    <div class="wrapper">
+        {% include 'partials/header.html' %}
+        {% include 'partials/sidebar.html' %}
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0">{{titulo}} </h1>
+                        </div><!-- /.col -->
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="{% url 'index' %}">Inicio</a></li>
+                                <li class="breadcrumb-item active">{{titulo}} </li>
+                            </ol>
+                        </div><!-- /.col -->
+                    </div><!-- /.row -->
+                </div><!-- /.container-fluid -->
+            </div>
+            <!-- /.content-header -->
+            <section class="content">
+                <div class="container-fluid">
+            {% block contenido %}
+
+            {% endblock contenido %}
+        </div>
+    </div>
+        </div>
+        {% include 'partials/modal.html' %}
+
+        {% include 'partials/footer.html' %}
+    </div>
+    {% if messages %}
+    {% for message in messages %}
+        <script>
+            Swal.fire({position: 'top-end',
+            toast: true,
+            showConfirmButton: false,
+            timer: 1500,
+            timerProgressBar: true
+        }
+                '{{ message.tags }}', '{{ message }}', '{{ message.tags }}');
+        </script>
+    {% endfor %}
+{% endif %}
+</body>
+
+</html>
