@@ -72,9 +72,11 @@
             toast: true,
             showConfirmButton: false,
             timer: 1500,
-            timerProgressBar: true
+            timerProgressBar: true,
+            icon:{{ message.tags }},
+            text:{{ message }},
         }
-                '{{ message.tags }}', '{{ message }}', '{{ message.tags }}');
+               
         </script>
     {% endfor %}
 {% endif %}
