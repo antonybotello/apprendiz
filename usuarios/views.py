@@ -3,7 +3,7 @@ from usuarios.models import Proveedor
 from usuarios.forms import ProveedorForm
 # Create your views here.
 def proveedor_crear(request):
-    titulo="Crear Proveedor"
+    titulo="Proveedor"
     if request.method== 'POST':
         form= ProveedorForm(request.POST)
         if form.is_valid():

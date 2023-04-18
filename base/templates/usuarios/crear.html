@@ -6,7 +6,7 @@
     <form action="" method="POST">
         {% csrf_token %}
         {{form|crispy}}
-        <input type="submit" value="Agregar Proveedor">
+        <input type="submit" value="Agregar {{titulo}}">
     </form>
 {% endblock contenido %}
     
