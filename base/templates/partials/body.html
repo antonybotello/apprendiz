@@ -11,7 +11,7 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"
         integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
     <!-- Incluye el plugin slick -->
-    
+   
 
 <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
 
@@ -22,11 +22,13 @@
 </head >
             <body>
                 {% include 'partials/header.html' %}
-
+                <div class="container">
+                    <div class="row g-5">
                 {% block contenido %}
 
                 {% endblock contenido %}
-
+                    </div>
+                </div>
                 {% include 'partials/footer.html' %}
 
 
