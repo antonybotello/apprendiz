@@ -19,7 +19,8 @@
     <link rel="stylesheet" href="{% static 'css/adminlte.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/Overlay/OverlayScrollbars.min.css' %}">
     <link href="{% static 'js/DataTables/datatables.min.css' %}" rel="stylesheet"/>
-    <link rel="stylesheet" href="{% static 'js/sweetalert2/sweetalert2.min.css' %}">
+    <!-- libreria sweetalert2 -->
+    <link rel="stylesheet" href="{% static 'js/SweetAlert2/sweetalert2.min.css' %}">
 
 
     <title> APPrendiz - {{ titulo }} </title>
@@ -68,18 +69,23 @@
     {% if messages %}
     {% for message in messages %}
         <script>
-            Swal.fire({position: 'top-end',
+            Swal.fire(
+                {position: 'top-end',
             toast: true,
             showConfirmButton: false,
-            timer: 1500,
+            timer:10000,
             timerProgressBar: true,
-            icon:{{ message.tags }},
-            text:{{ message }},
-        }
-               
+            background: '#454d55',        
+            icon:'{{ message.tags }}',
+            text:'{{ message }}',
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+              }        });
         </script>
     {% endfor %}
 {% endif %}
+
 </body>
 
 </html>
