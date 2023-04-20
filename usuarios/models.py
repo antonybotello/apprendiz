@@ -1,6 +1,10 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 # Create your models here.
+def get_image_filename(instance, filename):
+    ext = filename.split('.')[-1]
+    filename = f"{instance.documento}.{ext}"
+    return f"usuarios/{filename}"
 class Usuario(models.Model):
     primer_nombre= models.CharField(max_length=45,verbose_name="Primer Nombre")
     segundo_nombre= models.CharField(max_length=45,verbose_name="Segundo Nombre")
@@ -8,8 +12,8 @@ class Usuario(models.Model):
     primer_apellido= models.CharField(max_length=45,verbose_name="Primer Apellido")
     segundo_apellido= models.CharField(max_length=45,verbose_name="Segundo Apellido")
     
-    fecha_nacimiento= models.DateField(verbose_name="Fecha de Nacimiento", help_text="DD/MM/AAAA")
-    
+    fecha_nacimiento= models.DateField(verbose_name="Fecha de Nacimiento")
+    imagen = models.ImageField(upload_to=get_image_filename, blank=True, null=True,default="usuarios/default-user")
     class RH(models.TextChoices):
         OP='OP',_("O+")
         ON='ON',_("O-")

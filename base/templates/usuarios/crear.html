@@ -3,7 +3,7 @@
 
 
 {% block contenido %}
-    <form action="" method="POST">
+    <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {{form|crispy}}
         <input class="btn btn-primary" type="submit" value="Agregar {{titulo}}">

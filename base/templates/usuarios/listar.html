@@ -2,8 +2,24 @@
 {% load bootstrap_icons %}
 
 {% block contenido %}
+<div class="container-fluid m-5">
 <a href="{% url 'usuarios-crear' %}" class="btn btn-success w-25">Crear {{titulo}}</a>
-<table class="table table-hover">
+
+{% if visualizar == 1 %}
+<a href="{% url 'usuarios' 0 %}" class="btn btn-success w-25">
+{% else %}
+<a href="{% url 'usuarios' 1 %}" class="btn btn-success w-25">
+{% endif %}
+{% if visualizar == 1 %}
+Mostrar {{titulo}} Inactivos 
+{% else %}
+Ocultar {{titulo}} Inactivos
+{% endif %}
+</a>
+
+</div>
+<div class="container-fluid mb-5">
+<table id="lista-tabla" class="table table-hover ">
     <thead>
         <tr>
             <th>Nombre</th>
@@ -19,12 +35,15 @@
     <tbody>
         
         {% for usuario in usuarios %}
+        <tr
+        {% if usuario.estado != "1" %}
+         class="bg-warning"
+        {% endif %}
+        > 
         
-        {% if usuario.estado != "0" %}
-            
         
             
-            <tr>
+            
                 <td>{{usuario.primer_nombre}} {{usuario.segundo_nombre}}</td>
                 <td>{{usuario.primer_apellido}}</td>
                 <td>{{usuario.segundo_apellido}}</td>
@@ -41,10 +60,36 @@
                 </td>
 
             </tr>
-            {% endif %}
         {% endfor %}
             
     </tbody>
   </table>
+</div>
+<div class="container-fluid p-5">
+  <div class="card-deck">
+  
+  {% for usuario in usuarios %}
+
+    
+    {% include 'usuarios/card-usuario.html' %}
+  {% endfor %}
+  
+  </div>
+  <nav class="pt-5">
+    <ul class="pagination">
+      <li class="page-item disabled">
+        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Anterior</a>
+      </li>
+      <li class="page-item active" aria-current="page">
+        <a class="page-link" href="#">1</a>
+      </li>
+      <li class="page-item"><a class="page-link" href="#">2</a></li>
+      <li class="page-item"><a class="page-link" href="#">3</a></li>
+      <li class="page-item">
+        <a class="page-link" href="#">Siguiente</a>
+      </li>
+    </ul>
+  </nav>
+</div>
 {% endblock contenido %}
     

@@ -2,18 +2,31 @@ from django.shortcuts import render, redirect
 from usuarios.models import Usuario,Ficha
 from usuarios.forms import UsuarioForm,UsuarioUpdateForm,FichaForm, FichaUpdateForm
 from django.contrib import messages
+from PIL import Image
 # Create your views here.
 def usuario_crear(request):
     titulo="Usuario"
     if request.method== 'POST':
-        form= UsuarioForm(request.POST)
+        form= UsuarioForm(request.POST,request.FILES)
         if form.is_valid():
-            form.save()
-            messages.success(request, 'El formulario se ha enviado correctamente.')
+            usuario = form.save()
+            if usuario.imagen:
+                # Abre la imagen con Pillow
+               # Abre la imagen original
+                img = Image.open(usuario.imagen.path)
+
+                # Redimensiona la imagen
+                img = img.resize((500, 500))
+
+                # Guarda la imagen redimensionada
+                img.save(usuario.imagen.path)
+            
+            usuario.save()
+            messages.success(request, 'El usuario se ha creado correctamente.')
 
             return redirect('usuarios')
         else:
-            messages.error(request, 'El formulario tiene errores.')
+            messages.error(request, 'Los datos del usuario tienen errores.')
     else:
         form= UsuarioForm()
     context={
@@ -22,14 +35,19 @@ def usuario_crear(request):
         }
     return render(request,"usuarios/crear.html", context)
 
-def usuario_listar(request):
+def usuario_listar(request, visualizar=1):
     titulo="Usuario"
     modulo="Usuarios"
-    usuarios= Usuario.objects.all()
+    if visualizar==1:
+        usuarios= Usuario.objects.filter(estado=visualizar)
+    else:
+        usuarios= Usuario.objects.all()
+
     context={
         "titulo":titulo,
         "modulo":modulo,
-        "usuarios":usuarios
+        "usuarios":usuarios,
+        "visualizar":visualizar
     }
     return render(request,"usuarios/listar.html", context)
 

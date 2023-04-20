@@ -1,0 +1,10 @@
+<div class="card ">
+    <img src="{{ usuario.imagen.url }}" class="card-img-top img-fluid w-auto" alt="Imagen de perfil" >
+    <div class="card-body">
+        <h5 class="card-title">{{ usuario.full_name }}</h5>
+        <p class="card-text"><strong>Rol:</strong> {{ usuario.get_rol_display }}</p>
+        <p class="card-text"><strong>Teléfono:</strong> {{ usuario.telefono_contacto }}</p>
+        <p class="card-text"><strong>Correo:</strong> {{ usuario.correo_ins }}</p>
+        <!-- <a href="" class="btn btn-primary">Ver perfil completo</a> -->
+    </div>
+</div>

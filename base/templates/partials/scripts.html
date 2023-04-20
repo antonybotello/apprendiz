@@ -6,10 +6,19 @@
 
 <script src="{% static 'js/sweetalert2/sweetalert2.all.min.js' %}"></script>
 
-
+<!-- Para la funcion de eliminar -->
 <script>
     $(".btnEliminar").click(function () {
         var ficha = $(this).data("ficha");
         $("#btnConfElim").attr("href", "/{{modulo|lower}}/{{titulo|lower}}/eliminar/" + ficha);
+    });
+</script>
+<!-- Para los filtros de las tablas -->
+<script>
+    $(document).ready(function () {
+        $('#lista-tabla').DataTable({
+            "responsive": true,
+            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+        }).buttons().container().appendTo('#lista-tabla_wrapper .col-md-6:eq(0)');
     });
 </script>
