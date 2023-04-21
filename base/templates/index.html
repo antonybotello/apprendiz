@@ -1,5 +1,62 @@
 {% extends 'partials/body.html' %}
 {% block contenido %}
+  {% load bootstrap_icons %}
 
+  <!-- Info boxes -->
+  <div class="row">
+    <div class="col-12 col-sm-6 col-md-3">
+      <div class="info-box">
+        <span class="info-box-icon bg-info elevation-1">{% bs_icon 'person-bounding-box' size='1.8rem' %}</span>
 
-{% endblock contenido %}
+        <div class="info-box-content">
+          <span class="info-box-text">Usuarios</span>
+          <span class="info-box-number">{{ usuarios }}</span>
+        </div>
+        <!-- /.info-box-content -->
+      </div>
+      <!-- /.info-box -->
+    </div>
+    <!-- /.col -->
+    <div class="col-12 col-sm-6 col-md-3">
+      <div class="info-box mb-3">
+        <span class="info-box-icon bg-danger elevation-1">{% bs_icon 'emoji-angry-fill' size='1.8rem' %}</span>
+
+        <div class="info-box-content">
+          <span class="info-box-text">Llamados de Atención</span>
+          <span class="info-box-number">41,410</span>
+        </div>
+        <!-- /.info-box-content -->
+      </div>
+      <!-- /.info-box -->
+    </div>
+    <!-- /.col -->
+
+    <div class="col-12 col-sm-6 col-md-3">
+      <div class="info-box mb-3">
+        <span class="info-box-icon bg-success elevation-1">{% bs_icon 'people-fill' size='1.8rem' %}</span>
+
+        <div class="info-box-content">
+          <span class="info-box-text">Fichas</span>
+          <span class="info-box-number">{{ fichas }}</span>
+        </div>
+        <!-- /.info-box-content -->
+      </div>
+      <!-- /.info-box -->
+    </div>
+    <!-- /.col -->
+    <div class="col-12 col-sm-6 col-md-3">
+      <div class="info-box mb-3">
+        <span class="info-box-icon bg-warning elevation-1">{% bs_icon 'radioactive' size='1.8rem' %}</span>
+
+        <div class="info-box-content">
+          <span class="info-box-text">Instructores</span>
+          <span class="info-box-number">{{instructores}}</span>
+        </div>
+        <!-- /.info-box-content -->
+      </div>
+      <!-- /.info-box -->
+    </div>
+    <!-- /.col -->
+  </div>
+  <!-- /.row -->
+{% endblock %}

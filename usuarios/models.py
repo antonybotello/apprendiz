@@ -1,10 +1,12 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+
 # Create your models here.
 def get_image_filename(instance, filename):
     ext = filename.split('.')[-1]
     filename = f"{instance.documento}.{ext}"
     return f"usuarios/{filename}"
+
 class Usuario(models.Model):
     primer_nombre= models.CharField(max_length=45,verbose_name="Primer Nombre")
     segundo_nombre= models.CharField(max_length=45,verbose_name="Segundo Nombre")

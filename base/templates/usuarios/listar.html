@@ -2,6 +2,10 @@
 {% load bootstrap_icons %}
 
 {% block contenido %}
+{% for url in urls_list %}
+<h3>{{url}}</h3>
+  
+{% endfor %}
 <div class="container-fluid m-5">
 <a href="{% url 'usuarios-crear' %}" class="btn btn-success w-25">Crear {{titulo}}</a>
 
@@ -91,5 +95,9 @@ Ocultar {{titulo}} Inactivos
     </ul>
   </nav>
 </div>
+
+
+
+  
 {% endblock contenido %}
     

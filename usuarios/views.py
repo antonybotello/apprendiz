@@ -2,10 +2,19 @@ from django.shortcuts import render, redirect
 from usuarios.models import Usuario,Ficha
 from usuarios.forms import UsuarioForm,UsuarioUpdateForm,FichaForm, FichaUpdateForm
 from django.contrib import messages
+from django.urls import reverse, resolve
 from PIL import Image
+from django.urls import reverse
+from . import urls
+def obtener_nombres_urls():
+    lista= urls.urlpatterns
+    names = list(set([url.name for url in lista if url.name is not None]))
+    print(names)
+    return names
 # Create your views here.
 def usuario_crear(request):
     titulo="Usuario"
+    
     if request.method== 'POST':
         form= UsuarioForm(request.POST,request.FILES)
         if form.is_valid():
@@ -38,12 +47,16 @@ def usuario_crear(request):
 def usuario_listar(request, visualizar=1):
     titulo="Usuario"
     modulo="Usuarios"
+    urls_list=obtener_nombres_urls()
+    
     if visualizar==1:
         usuarios= Usuario.objects.filter(estado=visualizar)
     else:
         usuarios= Usuario.objects.all()
 
     context={
+        "urls_list":urls_list,
+
         "titulo":titulo,
         "modulo":modulo,
         "usuarios":usuarios,
