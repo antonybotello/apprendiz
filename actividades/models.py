@@ -1,5 +1,7 @@
 from django.db import models
 from usuarios.models import Usuario
+from django.utils.translation import gettext_lazy as _
+
 class Tipo_Llamado(models.Model):
     nombre= models.CharField(max_length=45,verbose_name="Nombre")
     norma= models.CharField(max_length=45,verbose_name="Norma")

@@ -9,8 +9,8 @@
 <!-- Para la funcion de eliminar -->
 <script>
     $(".btnEliminar").click(function () {
-        var ficha = $(this).data("ficha");
-        $("#btnConfElim").attr("href", "/{{modulo|lower}}/{{titulo|lower}}/eliminar/" + ficha);
+        var id = $(this).data("ident");
+        $("#btnConfElim").attr("href", "/{{modulo|lower}}/{{titulo|lower}}/eliminar/" + id);
     });
 </script>
 <!-- Para los filtros de las tablas -->

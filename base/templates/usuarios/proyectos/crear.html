@@ -1,0 +1,94 @@
+{% extends 'partials/body.html' %}
+{% load crispy_forms_tags %}
+
+{% block contenido %}
+<div class="row my-4">
+
+    <div class="col-md-3">
+
+        <div class="rounded card p-3">
+            {% if proyecto %}
+            
+            {% for p in proyecto %}
+              <h2> Grupo {{p.nombre}}</h2>
+              <form method="POST"  >
+                {% csrf_token %}
+                {{form_integrante|crispy}}
+                <input class="btn btn-primary" type="submit" value="Agregar aprendiz" name="form-integrante">
+            </form>
+            {% endfor %}
+                
+                {% else %}
+    
+            <h4>Crear Proyecto</h4>
+            <hr>
+            <form  method="POST" >
+                {% csrf_token %}
+                {{ form_proyecto|crispy }}
+            
+                <button class="btn btn-success btn-block" name="form-grupo">Abrir Proyecto</button>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+
+    
+    <div class="col-md-9">
+        <div class="card p-3">
+            <div class="card-header">
+                <h3 class="card-title">Gestionar integrantes</h3><br>
+                
+            </div>
+
+            <div class="card-body">
+                <table id="lista-tabla" class="table table-hover">
+                    <thead>
+                
+                
+                
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Documento</th>
+                           
+                            <th>Acciones</th>
+                
+                        </tr>
+                    </thead>
+                    <tbody>
+                
+                        {% for integrante in integrantes %}
+                
+                        
+                
+                        <tr>
+                            <td>{{integrante.aprendiz.primer_nombre}} </td>
+                            <td>{{integrante.aprendiz.primer_apellido}} </td>
+                            <td>{{integrante.aprendiz.documento}} </td>
+
+
+                
+                            
+                
+                            <td>
+                
+                                <a  href="{% url 'integrante-eliminar' integrante.id %}" class="btnEliminar btn btn-danger">
+                                    <i class="bi bi-trash"></i>
+                
+                
+                                </button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+{% endblock contenido %}

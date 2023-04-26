@@ -15,7 +15,7 @@ class Usuario(models.Model):
     segundo_apellido= models.CharField(max_length=45,verbose_name="Segundo Apellido")
     
     fecha_nacimiento= models.DateField(verbose_name="Fecha de Nacimiento")
-    imagen = models.ImageField(upload_to=get_image_filename, blank=True, null=True,default="usuarios/default-user")
+    imagen = models.ImageField(upload_to=get_image_filename, blank=True, null=True,default="usuarios/default-user.jpeg")
     class RH(models.TextChoices):
         OP='OP',_("O+")
         ON='ON',_("O-")
@@ -89,9 +89,30 @@ class Ficha(models.Model):
         verbose_name_plural = "Fichas"
 
 class Usuarios_Ficha(models.Model):
-    ficha=models.ForeignKey(Ficha, on_delete=models.CASCADE,verbose_name="Ficha")
-    usuario=models.ForeignKey(Usuario, on_delete=models.CASCADE,verbose_name="Usuario")
+    ficha=models.ForeignKey(Ficha,verbose_name="Ficha", on_delete=models.CASCADE)
+    usuario=models.ForeignKey(Usuario,verbose_name="Usuario", on_delete=models.CASCADE)
+    class Estado(models.TextChoices):
+        ACTIVO='1',_("Activo")
+        INACTIVO='0',_("Inactivo")
+    estado=models.CharField(max_length=1,choices=Estado.choices,default=Estado.ACTIVO,verbose_name="Estado")
+
+class Proyecto(models.Model):
+    nombre= models.CharField(max_length=45,verbose_name="Nombre del Grupo")
     
+    class Estado(models.TextChoices):
+        ACTIVO='1',_("Activo")
+        INACTIVO='0',_("Inactivo")
+    estado=models.CharField(max_length=1,choices=Estado.choices,default=Estado.ACTIVO,verbose_name="Estado")
+    fecha_creacion = models.DateField(auto_now=True, verbose_name="Fecha de Creación")
+
+class Integrantes(models.Model):
+    aprendiz=models.ForeignKey(Usuario,verbose_name="Aprendiz", on_delete=models.CASCADE)
+    grupo=models.ForeignKey(Proyecto,verbose_name="Grupo", on_delete=models.CASCADE)
+
+    class Estado(models.TextChoices):
+        ACTIVO='1',_("Activo")
+        INACTIVO='0',_("Inactivo")
+    estado=models.CharField(max_length=1,choices=Estado.choices,default=Estado.ACTIVO,verbose_name="Estado")
     
-    
+
 

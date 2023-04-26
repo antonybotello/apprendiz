@@ -1,5 +1,4 @@
 {% extends 'partials/body.html' %}
-{% load bootstrap_icons %}
 
 {% block contenido %}
 <a href="{% url 'fichas-crear' %}" class="btn btn-success w-25">Crear {{titulo}}</a>
@@ -39,7 +38,8 @@
 
                 <button type="button" data-ficha="{{ficha.id}}" class="btnEliminar btn btn-danger"
                     data-bs-toggle="modal" data-bs-target="#modalConf">
-                    {% bs_icon 'trash' %}
+                    <i class="bi bi-trash"></i>
+
 
                 </button>
                 <a class="btn btn-primary" href="{% url 'fichas-modificar' ficha.id %}">+</a>

@@ -1,12 +1,13 @@
 {% extends 'partials/body.html' %}
+
 {% block contenido %}
-  {% load bootstrap_icons %}
+
 
   <!-- Info boxes -->
   <div class="row">
     <div class="col-12 col-sm-6 col-md-3">
       <div class="info-box">
-        <span class="info-box-icon bg-info elevation-1">{% bs_icon 'person-bounding-box' size='1.8rem' %}</span>
+        <span class="info-box-icon bg-info elevation-1"><i class="bi bi-person-bounding-box"></i></span>
 
         <div class="info-box-content">
           <span class="info-box-text">Usuarios</span>
@@ -19,11 +20,11 @@
     <!-- /.col -->
     <div class="col-12 col-sm-6 col-md-3">
       <div class="info-box mb-3">
-        <span class="info-box-icon bg-danger elevation-1">{% bs_icon 'emoji-angry-fill' size='1.8rem' %}</span>
+        <span class="info-box-icon bg-danger elevation-1"><i class="bi bi-emoji-angry-fill"></i></span>
 
         <div class="info-box-content">
           <span class="info-box-text">Llamados de Atención</span>
-          <span class="info-box-number">41,410</span>
+          <span class="info-box-number">{{llamados}}</span>
         </div>
         <!-- /.info-box-content -->
       </div>
@@ -33,7 +34,7 @@
 
     <div class="col-12 col-sm-6 col-md-3">
       <div class="info-box mb-3">
-        <span class="info-box-icon bg-success elevation-1">{% bs_icon 'people-fill' size='1.8rem' %}</span>
+        <span class="info-box-icon bg-success elevation-1"><i class="bi bi-people-fill"></i></span>
 
         <div class="info-box-content">
           <span class="info-box-text">Fichas</span>
@@ -46,7 +47,7 @@
     <!-- /.col -->
     <div class="col-12 col-sm-6 col-md-3">
       <div class="info-box mb-3">
-        <span class="info-box-icon bg-warning elevation-1">{% bs_icon 'radioactive' size='1.8rem' %}</span>
+        <span class="info-box-icon bg-warning elevation-1"><i class="bi bi-radioactive"></i></span>
 
         <div class="info-box-content">
           <span class="info-box-text">Instructores</span>
@@ -59,4 +60,5 @@
     <!-- /.col -->
   </div>
   <!-- /.row -->
+  
 {% endblock %}

@@ -1,5 +1,5 @@
 {% load static %}
-{% load bootstrap_icons %}
+
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
@@ -37,29 +37,50 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-item menu-open">
-            <a href="#" class="nav-link active">
-              {% bs_icon 'people' %}
+          <li class="nav-item menu-close">
+            <a href="#" class="nav-link ">
+              <i class="bi bi-people-fill"></i>
               <p>
                 Usuarios
-                {% bs_icon 'chevron-left' extra_classes="right" %}
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{% url 'usuarios' %}" class="nav-link">
-                    {% bs_icon 'person' %}
-                  <p>Usuario</p>
+                <a href="{% url 'usuarios' %}" class="nav-link" data-url="{% url 'usuarios' %}">
+                  <i class="bi bi-person nav-icon"></i>
+                  <p>Usuarios</p>
                 </a>
-              </li>
-              <li class="nav-item">
-                <a href="{% url 'fichas' %}" class="nav-link active">
-                  
-                    {% bs_icon 'person-lines-fill' %}
-                  <p>Fichas</p>
-                </a>
-              </li>
+                <li class="nav-item">
+                  <a href="{% url 'fichas' %}" class="nav-link" data-url="{% url 'fichas' %}">
+                    <i class="bi bi-person-lines-fill nav-icon"></i>
+                    <p>Fichas</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{% url 'proyectos' %}" class="nav-link" data-url="{% url 'proyectos' %}">
+                    <i class="bi bi-lightbulb-fill"></i>
+                    <p>Proyectos</p>
+                  </a>
+                </li>
+            </ul>
+          </li>
+          
+      
+          <li class="nav-item menu-close">
+            <a href="#" class="nav-link ">
+              <i class="bi bi-megaphone-fill"></i>
               
+              <p>
+                Actividades
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{% url 'usuarios' %}" class="nav-link" data-url="{% url 'usuarios' %}">
+                  <i class="bi bi-emoji-angry-fill"></i>
+                  <p>Llamados</p>
+                </a>
+                
             </ul>
           </li>
           
@@ -69,3 +90,25 @@
     </div>
     <!-- /.sidebar -->
   </aside>
+     <!-- script para ventana activa -->
+  <script>
+    
+    // Get all the links in the menu
+    var links = document.querySelectorAll('.nav-link');
+  
+    // Loop through the links and add an event listener to each one
+    for (var i = 0; i < links.length; i++) {
+      links[i].addEventListener('click', function() {
+        // Remove the 'active' class from all links
+        for (var j = 0; j < links.length; j++) {
+          links[j].classList.remove('active');
+        }
+        // Add the 'active' class to the clicked link
+        this.classList.add('active');
+      });
+      // Check if the current URL matches the link URL and add the 'active' class
+      if (window.location.pathname === links[i].getAttribute('data-url')) {
+        links[i].classList.add('active');
+      }
+    }
+  </script>

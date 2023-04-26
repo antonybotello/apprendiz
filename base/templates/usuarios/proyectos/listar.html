@@ -1,0 +1,57 @@
+{% extends 'partials/body.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block contenido %}
+<div class="container-fluid m-5">
+
+
+<a href="{% url 'proyectos-crear' %}" class="btn btn-success w-25">Crear {{titulo}}</a>
+
+</div>
+<div class="container-fluid mb-5">
+<table id="lista-tabla" class="table table-hover">
+    <thead>
+
+
+
+        <tr>
+            <th>Nombre</th>
+            <th>Fecha de Creación</th>
+            <th>Estado</th>
+
+            <th>Acciones</th>
+
+        </tr>
+    </thead>
+    <tbody>
+
+        {% for proyecto in proyectos %}
+
+        
+
+        <tr>
+            <td>{{proyecto.nombre}} </td>
+
+            <td>{{proyecto.fecha_creacion}} </td>
+            <td>{{proyecto.estado}}</td>
+
+            <td>
+
+                <button type="button" data-ident="{{proyecto.id}}" class="btnEliminar btn btn-danger"
+                    data-bs-toggle="modal" data-bs-target="#modalConf">
+                    <i class="bi bi-trash"></i>
+
+
+                </button>
+                <a class="btn btn-primary" href="{% url 'proyectos-crear' proyecto.id %}">+</a>
+            </td>
+
+        </tr>
+        {% endfor %}
+
+    </tbody>
+</table>
+</div>
+{% endblock contenido %}
+    

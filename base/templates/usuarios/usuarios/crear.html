@@ -3,10 +3,14 @@
 
 
 {% block contenido %}
-    <form method="POST" enctype="multipart/form-data">
+<div class="container-fluid m-5">
+<div class="rounded card p-3 col-md-4">
+    <form method="POST"  enctype="multipart/form-data">
         {% csrf_token %}
         {{form|crispy}}
         <input class="btn btn-primary" type="submit" value="Agregar {{titulo}}">
     </form>
+</div>
+</div>
 {% endblock contenido %}
     
