@@ -1,4 +1,4 @@
-
+from django.core.files.uploadedfile import UploadedFile
 from django.forms import ModelForm, widgets
 from usuarios.models import Usuario,Ficha,Proyecto,Integrantes
 
@@ -12,6 +12,35 @@ class UsuarioForm(ModelForm):
         widgets={
             'fecha_nacimiento': widgets.DateInput(attrs={'type':'date'},format='%Y-%m-%d')
         }
+        
+    def clean(self):
+        cleaned_data = super().clean()
+        documento = cleaned_data.get('documento')
+        telefono_contacto = cleaned_data.get('telefono_contacto')
+        telefono_personal = cleaned_data.get('telefono_personal')
+        imagen = cleaned_data.get('imagen')
+
+        if documento and len(str(documento)) > 12:
+            self.add_error('documento', "El documento no puede tener más de 12 dígitos")
+
+        if telefono_contacto and len(str(telefono_contacto)) > 10:
+            self.add_error('telefono_contacto', "El teléfono no puede tener más de 10 dígitos")
+
+        if telefono_personal and len(str(telefono_personal)) > 10:
+            self.add_error('telefono_personal', "El teléfono no puede tener más de 10 dígitos")
+
+        if imagen and isinstance(imagen, UploadedFile):
+            ext = imagen.name.split('.')[-1].lower()
+            if ext not in ['jpg', 'png']:
+                self.add_error('imagen', "Solo se permiten archivos en formato PNG o JPG.")
+
+
+        return cleaned_data
+    
+    def __init__(self, *args, **kwargs):
+        super(UsuarioForm, self).__init__(*args, **kwargs)
+        self.fields["ficha"].queryset = Ficha.objects.filter(estado=Ficha.Estado.ACTIVO)
+
 class UsuarioUpdateForm(ModelForm):
     
     class Meta:

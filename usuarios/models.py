@@ -6,6 +6,21 @@ def get_image_filename(instance, filename):
     ext = filename.split('.')[-1]
     filename = f"{instance.documento}.{ext}"
     return f"usuarios/{filename}"
+class Ficha(models.Model):
+    numero = models.PositiveIntegerField(verbose_name="Número de Ficha")
+    fecha_ingreso = models.DateField(verbose_name="Fecha de Ingreso", help_text="DD/MM/AAAA")
+    fecha_productiva = models.DateField(verbose_name="Fecha de Etapa Productiva", help_text="DD/MM/AAAA")
+    fecha_final = models.DateField(verbose_name="Fecha de Salida", help_text="DD/MM/AAAA")
+    class Estado(models.TextChoices):
+        ACTIVO='1',_("Activo")
+        INACTIVO='0',_("Inactivo")
+    estado=models.CharField(max_length=1,choices=Estado.choices,default=Estado.ACTIVO,verbose_name="Estado")
+     
+    def __str__(self):
+        return f"Ficha {self.numero}"
+
+    class Meta:
+        verbose_name_plural = "Fichas"
 
 class Usuario(models.Model):
     primer_nombre= models.CharField(max_length=45,verbose_name="Primer Nombre")
@@ -38,17 +53,18 @@ class Usuario(models.Model):
         CEDULA_EXTRANJERIA='CE',_("Cédula de Extrangería")
     tipo_documento=models.CharField(max_length=2,choices=TipoDocumento.choices,verbose_name="Tipo de Documento")
     
-    documento= models.CharField(max_length=10,verbose_name="Documento")
+    documento= models.PositiveIntegerField(verbose_name="Documento", unique=True)
     
     correo_personal = models.EmailField(max_length=50, verbose_name="Correo Personal")
     correo_ins = models.EmailField(max_length=50, verbose_name="Correo Institucional")
-    telefono_contacto=models.CharField(max_length=10,verbose_name="Teléfono de Contacto")
-    telefono_personal=models.CharField(max_length=10,verbose_name="Teléfono de Personal")
+    telefono_contacto=models.PositiveIntegerField(verbose_name="Teléfono de Contacto de Emergencia")
+    telefono_personal=models.PositiveIntegerField(verbose_name="Teléfono de Personal")
     class Estado(models.TextChoices):
         ACTIVO='1',_("Activo")
         INACTIVO='0',_("Inactivo")
         CONDICIONADO='2',_("Condicionado")
     estado=models.CharField(max_length=1,choices=Estado.choices,default=Estado.ACTIVO,verbose_name="Estado")
+    ficha=models.ForeignKey(Ficha,verbose_name="Ficha", on_delete=models.CASCADE)
         
     def clean(self):
         self.primer_nombre= self.primer_nombre.title()
@@ -72,29 +88,7 @@ class Usuario(models.Model):
         else:
             return f"{self.primer_nombre} {self.primer_apellido} {self.segundo_apellido}"
         
-class Ficha(models.Model):
-    numero = models.PositiveIntegerField(verbose_name="Número de Ficha")
-    fecha_ingreso = models.DateField(verbose_name="Fecha de Ingreso", help_text="DD/MM/AAAA")
-    fecha_productiva = models.DateField(verbose_name="Fecha de Etapa Productiva", help_text="DD/MM/AAAA")
-    fecha_final = models.DateField(verbose_name="Fecha de Salida", help_text="DD/MM/AAAA")
-    class Estado(models.TextChoices):
-        ACTIVO='1',_("Activo")
-        INACTIVO='0',_("Inactivo")
-    estado=models.CharField(max_length=1,choices=Estado.choices,default=Estado.ACTIVO,verbose_name="Estado")
-     
-    def __str__(self):
-        return f"Ficha {self.numero}"
 
-    class Meta:
-        verbose_name_plural = "Fichas"
-
-class Usuarios_Ficha(models.Model):
-    ficha=models.ForeignKey(Ficha,verbose_name="Ficha", on_delete=models.CASCADE)
-    usuario=models.ForeignKey(Usuario,verbose_name="Usuario", on_delete=models.CASCADE)
-    class Estado(models.TextChoices):
-        ACTIVO='1',_("Activo")
-        INACTIVO='0',_("Inactivo")
-    estado=models.CharField(max_length=1,choices=Estado.choices,default=Estado.ACTIVO,verbose_name="Estado")
 
 class Proyecto(models.Model):
     nombre= models.CharField(max_length=45,verbose_name="Nombre del Grupo")

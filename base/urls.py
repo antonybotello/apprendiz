@@ -20,11 +20,21 @@ from base.views import principal
 # para las iamgenes
 from django.conf import settings
 from django.conf.urls.static import static
-
+# para la gestion de login y contraseña
+from django.contrib.auth import views as auth_views
 urlpatterns = [
+    #gestion de login y contraseña
+    path('',auth_views.LoginView.as_view(),name='inicio'),
+    path('reiniciar/',auth_views.PasswordResetView.as_view(),name='password_reset'),
+    path('reiniciar/enviar',auth_views.PasswordResetDoneView.as_view(),name='password_reset_done'),
+    path('reiniciar/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    path('reiniciar/completo',auth_views.PasswordResetCompleteView.as_view(),name='password_reset_complete'),
+
     path('admin/', admin.site.urls),
-    path('', principal, name="index" ),
+    path('inicio/', principal, name="index" ),
     path('usuarios/', include('usuarios.urls') ),
+    path('actividades/', include('actividades.urls') ),
+
     
 
 ]
