@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from base.views import principal
+from base.views import principal, logout_user
 # para las iamgenes
 from django.conf import settings
 from django.conf.urls.static import static
@@ -29,7 +29,8 @@ urlpatterns = [
     path('reiniciar/enviar',auth_views.PasswordResetDoneView.as_view(),name='password_reset_done'),
     path('reiniciar/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
     path('reiniciar/completo',auth_views.PasswordResetCompleteView.as_view(),name='password_reset_complete'),
-
+    path('logout/',logout_user,name="logout"),
+    
     path('admin/', admin.site.urls),
     path('inicio/', principal, name="index" ),
     path('usuarios/', include('usuarios.urls') ),

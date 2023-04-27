@@ -1,9 +1,11 @@
 from django.shortcuts import render
 from actividades.models import Llamado
 from actividades.forms import LlamadoForm
+from django.contrib.auth.decorators import login_required
+
 # Create your views here.
 
-   
+@login_required
 def llamado_crear(request):
     titulo="Llamado"
     if request.method== 'POST':
@@ -18,7 +20,7 @@ def llamado_crear(request):
         "form":form
         }
     return render(request,"usuarios/llamados/crear.html", context)
-
+@login_required
 def llamado_listar(request):
     titulo="Llamado"
     modulo="Usuarios"
@@ -29,7 +31,7 @@ def llamado_listar(request):
         "llamados":llamados
     }
     return render(request,"usuarios/llamados/listar.html", context)
-
+@login_required
 def llamado_eliminar(request,pk):
     llamado= Llamado.objects.filter(id=pk)
     llamado.update(

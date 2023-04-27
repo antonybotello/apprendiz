@@ -14,6 +14,8 @@ from PIL import Image
 from django.urls import reverse
 from . import urls
 from django.core.paginator import Paginator, PageNotAnInteger
+from django.contrib.auth.decorators import login_required
+
     # """Esta funcion permite filtrar las urls
     # """
 # def obtener_nombres_urls(modulo):
@@ -24,6 +26,8 @@ from django.core.paginator import Paginator, PageNotAnInteger
 #     print(names)
 #     return names
 # # Create your views here.
+
+@login_required
 def usuario_crear(request):
     titulo="Usuario"
     
@@ -56,6 +60,7 @@ def usuario_crear(request):
         }
     return render(request,"usuarios/usuarios/crear.html", context)
 
+@login_required
 def usuario_listar(request, visualizar=1):
     titulo="Usuario"
     modulo="Usuarios"
@@ -87,6 +92,7 @@ def usuario_listar(request, visualizar=1):
     }
     return render(request,"usuarios/usuarios/listar.html", context)
 
+@login_required
 def usuario_modificar(request,pk):
     titulo="Usuario"
     usuario= Usuario.objects.get(id=pk)
@@ -113,7 +119,8 @@ def usuario_eliminar(request,pk):
     )
     return redirect('usuarios')
    
-   
+
+@login_required
 def ficha_crear(request):
     titulo="Ficha"
     if request.method== 'POST':
@@ -129,6 +136,7 @@ def ficha_crear(request):
         }
     return render(request,"usuarios/fichas/crear.html", context)
 
+@login_required
 def ficha_listar(request):
     titulo="Ficha"
     modulo="Usuarios"
@@ -140,6 +148,7 @@ def ficha_listar(request):
     }
     return render(request,"usuarios/fichas/listar.html", context)
 
+@login_required
 def ficha_modificar(request,pk):
     titulo="Fichas"
     
@@ -158,6 +167,7 @@ def ficha_modificar(request,pk):
         }
     return render(request,"usuarios/fichas/modificar.html", context)
 
+@login_required
 def ficha_eliminar(request,pk):
     ficha= Ficha.objects.filter(id=pk)
     ficha.update(
@@ -168,6 +178,7 @@ def ficha_eliminar(request,pk):
    
 
 
+@login_required
 def proyecto_listar(request):
     titulo="Proyecto"
     modulo="Usuarios"
@@ -178,6 +189,7 @@ def proyecto_listar(request):
         "proyectos":proyectos
     }
     return render(request,"usuarios/proyectos/listar.html", context)
+@login_required
 def proyecto_crear(request,pk=0):
     titulo="Proyectos"
     modulo="Usuarios"
@@ -220,6 +232,7 @@ def proyecto_crear(request,pk=0):
     }
     return render(request,"usuarios/proyectos/crear.html", context)
 
+@login_required
 def proyecto_modificar(request,pk):
     titulo="Proyectos"
     
@@ -238,6 +251,7 @@ def proyecto_modificar(request,pk):
         }
     return render(request,"usuarios/proyectos/modificar.html", context)
 
+@login_required
 def proyecto_eliminar(request,pk):
     proyecto= Proyecto.objects.filter(id=pk)
     proyecto.update(
@@ -245,7 +259,9 @@ def proyecto_eliminar(request,pk):
     )
     print(proyecto[0].estado)
     return redirect('proyectos')
-   
+
+
+@login_required
 def integrante_eliminar(request,pk):
     integrante = get_object_or_404(Integrantes, id=pk)
     id_proy=integrante.grupo.id
